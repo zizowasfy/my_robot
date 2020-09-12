@@ -1,0 +1,24 @@
+<launch>
+
+	<arg name="use_gui" default="true"/>
+
+	<param name="robot_description" textfile="$(find my_robot)/urdf/zizos.urdf" />
+
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_robot)/launch/zizosconfig.rviz"/>
+
+<!-- 	<node if = "$(arg use_gui)" name= "joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" /> -->
+
+<!-- 	<node unless="$(arg use_gui)" name= "joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+<!-- 	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+	<param name="use_gui" value="$(arg use_gui)"/>
+	</node>
+ -->
+	<node name="python_script" pkg="my_robot" type="zizosmove.py" output="screen" />
+
+ 	<!-- <node name="node_killer" pkg="rosnode" type="none" command="kill /joint_state_publisher" />  DID NOT WORK --> 
+
+</launch>
